@@ -64,6 +64,7 @@ resource "netbox_prefix" "test" {
   description = "%s"
   status = "active"
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("netbox_prefix.test", "prefix", testPrefix),
@@ -71,6 +72,7 @@ resource "netbox_prefix" "test" {
 					resource.TestCheckResourceAttr("netbox_prefix.test", "description", testDesc),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.#", "1"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.0", testName),
+					resource.TestCheckResourceAttr("netbox_prefix.test", "mark_utilized", "true"),
 				),
 			},
 			{
@@ -80,6 +82,7 @@ resource "netbox_prefix" "test" {
   description = "%s"
   status = "provoke_error"
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				ExpectError: regexp.MustCompile("expected status to be one of .*"),
 			},
@@ -90,6 +93,7 @@ resource "netbox_prefix" "test" {
   description = "%s"
   status = "deprecated"
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("netbox_prefix.test", "prefix", testPrefix),
@@ -103,6 +107,7 @@ resource "netbox_prefix" "test" {
   description = "%s"
   status = "container"
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("netbox_prefix.test", "prefix", testPrefix),
@@ -116,6 +121,7 @@ resource "netbox_prefix" "test" {
   description = "%s 2"
   status = "active"
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("netbox_prefix.test", "prefix", testPrefix),
@@ -126,6 +132,7 @@ resource "netbox_prefix" "test" {
 					resource.TestCheckResourceAttr("netbox_prefix.test", "site_id", "0"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.#", "1"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.0", testName),
+					resource.TestCheckResourceAttr("netbox_prefix.test", "mark_utilized", "true"),
 				),
 			},
 			{
@@ -137,6 +144,7 @@ resource "netbox_prefix" "test" {
   vrf_id = netbox_vrf.test.id
   tenant_id = netbox_tenant.test.id
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("netbox_prefix.test", "prefix", testPrefix),
@@ -146,6 +154,7 @@ resource "netbox_prefix" "test" {
 					resource.TestCheckResourceAttrPair("netbox_prefix.test", "tenant_id", "netbox_tenant.test", "id"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.#", "1"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.0", testName),
+					resource.TestCheckResourceAttr("netbox_prefix.test", "mark_utilized", "true"),
 				),
 			},
 			{
@@ -160,6 +169,7 @@ resource "netbox_prefix" "test" {
   vlan_id = netbox_vlan.test.id
   role_id = netbox_ipam_role.test.id
   tags = [netbox_tag.test.name]
+  mark_utilized = true
 }`, testPrefix, testDesc),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("netbox_prefix.test", "prefix", testPrefix),
@@ -172,6 +182,7 @@ resource "netbox_prefix" "test" {
 					resource.TestCheckResourceAttrPair("netbox_prefix.test", "role_id", "netbox_ipam_role.test", "id"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.#", "1"),
 					resource.TestCheckResourceAttr("netbox_prefix.test", "tags.0", testName),
+					resource.TestCheckResourceAttr("netbox_prefix.test", "mark_utilized", "true"),
 				),
 			},
 			{
